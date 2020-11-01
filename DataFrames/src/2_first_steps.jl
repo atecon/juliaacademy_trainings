@@ -9,6 +9,9 @@ using GLM
 using Printf
 # Pkg.add("JuliaFormatter")
 using JuliaFormatter
+# Pkg.add("Plots")
+using Plots
+
 
 
 # input matrix
@@ -37,6 +40,10 @@ df.y1
 df[:, :x1]
 df[:, [:y1, :x1]]
 df[:, ["y1", "x1"]]
+
+# Access columns by variable names
+some_name = :x1
+df[:,some_name]
 
 # Reorder columns by x* followed y* columns
 df2 = select(df, r"x", :)
@@ -88,4 +95,20 @@ for var in var_names
     limits[var] = get_limits(df, var)
 end
 println(limits)
+
+# Actual plotting
+p1 = Plots.plot(df.x1, df.y1, xlabel="This one is labelled", lw=3, title="Subtitle") # Make a line plot
+p2 = Plots.scatter(df.x1, df.y1) # Make a scatter plot
+p3 = Plots.histogram(df.x1, df.y1)
+Plots.plot(p1, p2, p3, layout=(3, 1), legend=false)
+
+"""
+for i in 1:2
+    x = Symbol("x", i)
+    y = Symbol("y", i)
+    p{$i} = Plots.plot(df[:,"x$i"], df[:,"y$i"])
+end
+Plots.plot(p1, p2, layout=(1, 2), legend=false)
+"""
+
 
