@@ -7,3 +7,5 @@ using DataFrames
 using Pipe
 using FreqTables
 using Statistics
+
+ENV["LINES"], ENV["COLUMNS"] = 15, 15

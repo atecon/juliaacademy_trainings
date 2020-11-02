@@ -48,7 +48,7 @@ function str_to_csv_to_dataframe(buffer, delimiter::String)::DataFrame
     return df
 end;
 
-df = str_to_csv_to_dataframe(io, DELIMITER)
+df = str_to_csv_to_dataframe(io, DELIMITER);
 df[:,"mpg"]
 df[:,:name]
 names(df)
@@ -65,8 +65,11 @@ filter(row -> any(ismissing, row), df)
 df.brand = first.(split.(df.name, " "));
 
 # Drop missings
+names(df2)
 df2 = dropmissing(df)
 @printf("%d rows were dropped.", (nrow(df) - nrow(df2)))
+
+CSV.write("auto2.csv", df2)
 
 # Filter
 df2[df2.brand .== "saab", :] # via indexing
