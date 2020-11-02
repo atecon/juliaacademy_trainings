@@ -11,7 +11,7 @@ end
 URL_MANIFEST = "https://raw.githubusercontent.com/JuliaAcademy/DataFrames/master/Manifest.toml";
 URL_PROJECT = "https://raw.githubusercontent.com/JuliaAcademy/DataFrames/master/Project.toml";
 
-function get_files(urls::StridedArray)
+function get_files(urls::String)
     for url in urls
         try
             HTTP.download(url, pwd())
@@ -23,6 +23,10 @@ function get_files(urls::StridedArray)
 end;
 
 get_files([URL_MANIFEST, URL_PROJECT])
+
+Pkg.activate("Project.toml");
+Pkg.add(["Printf", "Plots"])
+Pkg.status()
 
 @info("Finished job")
 exit()

@@ -1,5 +1,5 @@
 using Pkg;
-Pkg.instantiate()
+Pkg.activate("Project.toml");
 Pkg.status()
 
 using DataFrames
@@ -7,11 +7,7 @@ using Statistics
 using PyPlot
 using GLM
 using Printf
-# Pkg.add("JuliaFormatter")
-using JuliaFormatter
-# Pkg.add("Plots")
 using Plots
-
 
 
 # input matrix
@@ -101,14 +97,4 @@ p1 = Plots.plot(df.x1, df.y1, xlabel="This one is labelled", lw=3, title="Subtit
 p2 = Plots.scatter(df.x1, df.y1) # Make a scatter plot
 p3 = Plots.histogram(df.x1, df.y1)
 Plots.plot(p1, p2, p3, layout=(3, 1), legend=false)
-
-"""
-for i in 1:2
-    x = Symbol("x", i)
-    y = Symbol("y", i)
-    p{$i} = Plots.plot(df[:,"x$i"], df[:,"y$i"])
-end
-Plots.plot(p1, p2, layout=(1, 2), legend=false)
-"""
-
 
