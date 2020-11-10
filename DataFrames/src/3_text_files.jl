@@ -49,8 +49,8 @@ function str_to_csv_to_dataframe(buffer, delimiter::String)::DataFrame
 end;
 
 df = str_to_csv_to_dataframe(io, DELIMITER);
-df[:,"mpg"]
-df[:,:name]
+df[:, "mpg"]
+df[:, :name]
 names(df)
 
 # Number of total missings
@@ -58,21 +58,23 @@ names(df)
 @time count(ismissing, Matrix(df)) # faster
 @time mapcols(x -> count(ismissing, x), df)
 
+# Print obs for which row/ cols has at least a single missing element
 filter(row -> any(ismissing, row), df)
+filter(col -> any(ismissing, col), df)
 
 # Parse the brand name from 'name' where it is the first element
 # Run element-wise ops by 'split.' and 'first.'
 df.brand = first.(split.(df.name, " "));
 
 # Drop missings
-names(df2)
+names(df)
 df2 = dropmissing(df)
 @printf("%d rows were dropped.", (nrow(df) - nrow(df2)))
 
 CSV.write("auto2.csv", df2)
 
 # Filter
-df2[df2.brand .== "saab", :] # via indexing
-filter(:brand => ==("saab"), df2)
+@time df2[df2.brand .== "saab", :] # via indexing
+@time filter(:brand => ==("saab"), df2)
 
 exit()

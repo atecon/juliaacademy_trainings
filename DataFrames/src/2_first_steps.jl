@@ -47,10 +47,8 @@ df2
 
 # Describe
 describe(df)
-describe(df, :mean, :std)
 describe(df, :avg => mean, :sd => std)
 describe(df, "avg" => mean, "sd" => std) # string-symbol duality again also here
-
 describe(df, cols=[:y1, :x4], "avg" => mean, "sd" => std)
 
 nrow(df)
